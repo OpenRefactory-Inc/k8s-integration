@@ -13,11 +13,6 @@ spec:
       description: Namespace of the application under test
   steps:
     - image: docker.io/openrefactory/icr-unified-engine:latest
-      
-      # resources:
-      #   requests:
-      #     memory: 50Mi
-      #     cpu: 1000m
 
       env:
         - name: SNAPSHOT
@@ -26,5 +21,5 @@ spec:
           value: $(params.NAMESPACE)
 
       script: |
-        echo -e "${SNAPSHOT}"
-        echo -e "${NAMESPACE}"
+        echo $(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.url)
+        echo $(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.revision)        

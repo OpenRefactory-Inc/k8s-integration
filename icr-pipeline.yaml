@@ -17,6 +17,7 @@ spec:
       type: string
       default: "default"
 
+  tasks:
     - name: icr-scan
       taskRef:
         resolver: git
