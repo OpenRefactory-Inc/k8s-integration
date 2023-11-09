@@ -40,6 +40,8 @@ spec:
 
       script: |
         ls /etc/secrets
+        cat /etc/secrets/LICENSE_KEY
+        
         echo "LICENSE_KEY H4DR-MPJY-ZLNJ-XNOR" >> config
         echo "SARIF /workspaceOR/results/sarif/" >> config
         echo "GOPATH /workspaceOR/GP/" >> config
