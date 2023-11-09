@@ -21,5 +21,13 @@ spec:
           value: $(params.NAMESPACE)
 
       script: |
-        echo $(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.url)
-        echo $(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.revision)        
+        echo "LICENSE_KEY H4DR-MPJY-ZLNJ-XNOR" >> config
+        echo "SARIF /workspaceOR/results/sarif/" >> config
+        echo "GOPATH /workspaceOR/GP/" >> config
+        echo "SUMMARIES_PATH /workspaceOR/summaries/" >> config
+        sh configure_run.sh --engine=Go --git_url=$(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.url) --revision=$(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.revision)
+        cd /workspaceOR/results/sarif/ || { echo "Directory not found"; exit 1; }
+        for file in *.json; do
+          echo "Pretty printing $file:"
+          jq '.' "$file"
+        done
