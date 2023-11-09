@@ -5,14 +5,32 @@ metadata:
 spec:
   description: >-
     Expects an Snapshot deployed.
+
   params:
     - name: SNAPSHOT
       description: The json string of the Snapshot under test 
+    
     - default: 'default'
       name: NAMESPACE
       description: Namespace of the application under test
+    
+    - name: ICR_SECRET
+      description: Name of secret which contains Snyk token.
+      default: icr-secret
+
+  volumes:
+    - name: icr-secret
+      secret:
+        secretName: $(params.ICR_SECRET)
+        optional: true 
+
   steps:
     - image: docker.io/openrefactory/icr-unified-engine:latest
+      
+      volumeMounts:
+        - name: icr-secret
+          mountPath: "/etc/secrets"
+          readOnly: true
 
       env:
         - name: SNAPSHOT
@@ -21,6 +39,7 @@ spec:
           value: $(params.NAMESPACE)
 
       script: |
+        ls /etc/secrets
         echo "LICENSE_KEY H4DR-MPJY-ZLNJ-XNOR" >> config
         echo "SARIF /workspaceOR/results/sarif/" >> config
         echo "GOPATH /workspaceOR/GP/" >> config
