@@ -25,7 +25,7 @@ spec:
         optional: true 
 
   steps:
-    - image: docker.io/openrefactory/icr-unified-engine:latest
+    - image: docker.io/openrefactory/icr-unified-engine:redhat
       
       volumeMounts:
         - name: icr-secret
