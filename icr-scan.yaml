@@ -41,12 +41,8 @@ spec:
       script: |
         LICENSE_KEY_FILE="/etc/secrets/LICENSE_KEY"
         CONFIG_FILE="config"
-
         # Read the license key content
         LICENSE_KEY_CONTENT=$(cat "$LICENSE_KEY_FILE")
-
-        echo "$LICENSE_KEY_CONTENT"  
-
         # Append "LICENSE_KEY" and the content of the license key file to the config file on the same line
         echo "LICENSE_KEY $LICENSE_KEY_CONTENT" >> "$CONFIG_FILE"
         echo "" >> "$CONFIG_FILE"
