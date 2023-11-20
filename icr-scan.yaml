@@ -41,10 +41,10 @@ spec:
       script: |
         echo "LICENSE_KEY $(cat /etc/secrets/LICENSE_KEY)" >> config
         echo "" >> config 
+        cat config
         echo "SARIF /workspaceOR/results/sarif/" >> config
         echo "GOPATH /workspaceOR/GP/" >> config
         echo "SUMMARIES_PATH /workspaceOR/summaries/" >> config
-        cat config
         sh configure_run.sh --engine=Go --git_url=$(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.url) --commit_hash=$(echo -n ${SNAPSHOT} | jq -r .components[0].source.git.revision)
         cd /workspaceOR/results/sarif/ || { echo "Directory not found"; exit 1; }
         for file in *.json; do
