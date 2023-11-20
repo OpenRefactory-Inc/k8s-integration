@@ -39,7 +39,7 @@ spec:
           value: $(params.NAMESPACE)
 
       script: |
-        cat /etc/secrets/LICENSE_KEY >> config
+        echo "LICENSE_KEY $(cat /etc/secrets/LICENSE_KEY)" >> config
         echo "" >> config 
         echo "SARIF /workspaceOR/results/sarif/" >> config
         echo "GOPATH /workspaceOR/GP/" >> config
